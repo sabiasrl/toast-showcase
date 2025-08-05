@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: toast-integration-service
+  
+  profiles:
+    active: dev
+
+server:
+  port: 8081
+
+camel:
+  springboot:
+    main-run-controller: true
+    auto-startup: true
+  
+  component:
+    pulsar:
+      service-url: pulsar://localhost:6650
+      operation-timeout: 30s
+      connection-timeout: 10s
+    
+    rabbitmq:
+      hostname: localhost
+      port: 5672
+      username: guest
+      password: guest
+      connection-timeout: 60000
+      requested-channel-max: 0
+      requested-frame-max: 0
+      requested-heartbeat: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,camelroutes,camelroutecontrollers
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.toast: DEBUG
+    org.apache.camel: DEBUG
+    org.apache.camel.springboot: DEBUG 
